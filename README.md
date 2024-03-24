@@ -1,3 +1,3 @@
-# 01 Skripsi - Dungeon Escape
+Dungeon Escape
 
 Assets/Scripts/
