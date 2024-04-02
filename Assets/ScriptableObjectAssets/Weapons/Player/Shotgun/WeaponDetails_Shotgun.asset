@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07200de8e35e7454881fc8aa01470ffc, type: 3}
+  m_Name: WeaponDetails_Shotgun
+  m_EditorClassIdentifier: 
+  weaponName: Shotgun
+  weaponSprite: {fileID: 21300000, guid: 957e7c5a4532c7b4fa28cd31bf5aee5d, type: 3}
+  weaponShootPosition: {x: 1.376, y: 0.208, z: 0}
+  weaponCurrentAmmo: {fileID: 11400000, guid: 8f5bd4a187c75204a9df4679e0c86f3c, type: 2}
+  weaponShootEffect: {fileID: 11400000, guid: 8f16dae89232bb84c81f1c11e9f4c7fe, type: 2}
+  weaponFiringSoundEffect: {fileID: 11400000, guid: 2958da6efe7e7d941aeb2f79b5bc77ad, type: 2}
+  weaponReloadingSoundEffect: {fileID: 11400000, guid: c502319e625e84944a2b59f748fa70e2, type: 2}
+  hasInfiniteAmmo: 0
+  hasInfiniteClipCapacity: 0
+  weaponClipAmmoCapacity: 2
+  weaponAmmoCapacity: 30
+  weaponFireRate: 0.4
+  weaponPrechargeTime: 0
+  weaponRealoadTime: 1

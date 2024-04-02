@@ -9,15 +9,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4637519201881181494, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
-      value: 0.16111112
+      value: 0.18444446
       objectReference: {fileID: 0}
     - target: {fileID: 4637519201881181494, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0.29999998
+      value: 0.37008545
       objectReference: {fileID: 0}
     - target: {fileID: 4637519201881181494, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 1.25
+      value: 1.125
       objectReference: {fileID: 0}
     - target: {fileID: 4637519201881181494, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
@@ -25,7 +25,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4637519201881181494, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.25
+      value: 1.125
       objectReference: {fileID: 0}
     - target: {fileID: 4637519201881181494, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
@@ -34,22 +34,6 @@ PrefabInstance:
     - target: {fileID: 4637519201881181494, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
       propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637519201881181495, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
-      propertyPath: m_Size.x
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637519201881181495, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
-      propertyPath: m_Size.y
-      value: 0.6875
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637519201881181495, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637519201881181495, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4637519202774736038, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
       propertyPath: m_RootOrder
@@ -123,6 +107,14 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7425351871600623956, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
+      propertyPath: weaponRotationPointTransform
+      value: 
+      objectReference: {fileID: 3450409679120948459}
+    - target: {fileID: 7937374500899733627, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
+      propertyPath: weaponShootPosition
+      value: 
+      objectReference: {fileID: 3403235095704115079}
     - target: {fileID: 8326052096578386134, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
       propertyPath: m_Size.x
       value: 0.25
@@ -141,3 +133,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
+--- !u!4 &3450409679120948459 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4637519202055622749, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
+  m_PrefabInstance: {fileID: 8050631245405015222}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3403235095704115079 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4648610090215070513, guid: b345d60c89a01074caf29ee9bbb1233b, type: 3}
+  m_PrefabInstance: {fileID: 8050631245405015222}
+  m_PrefabAsset: {fileID: 0}

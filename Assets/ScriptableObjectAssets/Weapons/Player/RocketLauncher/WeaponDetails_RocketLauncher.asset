@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07200de8e35e7454881fc8aa01470ffc, type: 3}
+  m_Name: WeaponDetails_RocketLauncher
+  m_EditorClassIdentifier: 
+  weaponName: Rocket Launcher
+  weaponSprite: {fileID: 21300000, guid: f4a1e113145591f45bfacfc7d7bf80c5, type: 3}
+  weaponShootPosition: {x: 1.547, y: 0.306, z: 0}
+  weaponCurrentAmmo: {fileID: 11400000, guid: ebb72e2baf47f8b4e868ed192a96f177, type: 2}
+  weaponShootEffect: {fileID: 11400000, guid: 463630b3d03a9a94c903caf498fc5298, type: 2}
+  weaponFiringSoundEffect: {fileID: 11400000, guid: b05146c1e3233a3428e5dcabd9f5cf9c, type: 2}
+  weaponReloadingSoundEffect: {fileID: 11400000, guid: 47576751208a50e4fbebc3e58a6e30c3, type: 2}
+  hasInfiniteAmmo: 0
+  hasInfiniteClipCapacity: 0
+  weaponClipAmmoCapacity: 2
+  weaponAmmoCapacity: 15
+  weaponFireRate: 1
+  weaponPrechargeTime: 0
+  weaponRealoadTime: 2
