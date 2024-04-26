@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07200de8e35e7454881fc8aa01470ffc, type: 3}
   m_Name: WeaponDetails_QBZ95SMG
   m_EditorClassIdentifier: 
-  weaponName: QBZ95SMG
+  weaponName: QBZ95 SMG
   weaponSprite: {fileID: 21300000, guid: dff74299f2cf7674eb05930ed6b07f8e, type: 3}
   weaponShootPosition: {x: 1.284, y: 0.342, z: 0}
   weaponCurrentAmmo: {fileID: 11400000, guid: fe4efebdc136d1a4f9e82bd6c782d1b4, type: 2}

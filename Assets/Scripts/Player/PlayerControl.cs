@@ -168,7 +168,7 @@ public class PlayerControl : MonoBehaviour
 
         // Fire weapon input
         FireWeaponInput(weaponDirection, weaponAngleDegrees, playerAngleDegrees, playerAimDirection);
-        
+
         // Switch weapon input
         SwitchWeaponInput();
 
@@ -314,7 +314,7 @@ public class PlayerControl : MonoBehaviour
             currentWeaponIndex = player.weaponList.Count;
         }
 
-        SetWeaponByIndex(currentWeaponIndex); 
+        SetWeaponByIndex(currentWeaponIndex);
     }
 
     private void ReloadWeaponInput()
@@ -324,16 +324,15 @@ public class PlayerControl : MonoBehaviour
         // If current weapon is reloading retun
         if (currentWeapon.isWeaponReloading) return;
 
-        // Remaining ammo is less than clip capacity then retun and not infinite ammo then return
-        if (currentWeapon.weaponRemainingAmmo < currentWeapon.weaponDetails.weaponClipAmmoCapacity && !currentWeapon.weaponDetails.hasInfiniteAmmo)
-            return;
+        // remaining ammo is less than clip capacity then return and not infinite ammo then return
+        if (currentWeapon.weaponRemainingAmmo < currentWeapon.weaponDetails.weaponClipAmmoCapacity && !currentWeapon.weaponDetails.hasInfiniteAmmo) return;
 
-        // If ammo in clip equals clip capacity then return
+        // if ammo in clip equals clip capacity then return
         if (currentWeapon.weaponClipRemainingAmmo == currentWeapon.weaponDetails.weaponClipAmmoCapacity) return;
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            // Call the reload event 
+            // Call the reload weapon event
             player.reloadWeaponEvent.CallReloadWeaponEvent(player.activeWeapon.GetCurrentWeapon(), 0);
         }
     }
@@ -373,7 +372,7 @@ public class PlayerControl : MonoBehaviour
         // Loop through exiting weapon list and add - skipping current weapon
         int index = 2;
 
-        foreach (Weapon weapon in player.weaponList) 
+        foreach (Weapon weapon in player.weaponList)
         {
             if (weapon == currentWeapon) continue;
 

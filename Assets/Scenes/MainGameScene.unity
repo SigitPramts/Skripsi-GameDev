@@ -1845,6 +1845,7 @@ GameObject:
   - component: {fileID: 1482950150}
   - component: {fileID: 1482950149}
   - component: {fileID: 1482950151}
+  - component: {fileID: 1482950152}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1871,7 +1872,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f0cd865fa1214f64ea3eebc2fdbba5e2, type: 2}
   - {fileID: 11400000, guid: e1d3624a938ad48468234e79c269f344, type: 2}
   - {fileID: 11400000, guid: 60858f5771589904cb223dcf028705a6, type: 2}
-  currentDungeonLevelListIndex: 1
+  currentDungeonLevelListIndex: 5
   gameState: 0
 --- !u!4 &1482950150
 Transform:
@@ -1895,6 +1896,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482950148}
   m_Enabled: 1
+--- !u!114 &1482950152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482950148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29656c18b28ab9c48a3313316986c27e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1574087841
 GameObject:
   m_ObjectHideFlags: 0
@@ -2092,6 +2105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1728985841}
   - component: {fileID: 1728985840}
+  - component: {fileID: 1728985842}
   m_Layer: 0
   m_Name: DungeonBuilder
   m_TagString: Untagged
@@ -2125,6 +2139,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1728985842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728985839}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325bbf8c2846ba24397fbb2c77ebb4c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1826860288
 GameObject:
   m_ObjectHideFlags: 0
