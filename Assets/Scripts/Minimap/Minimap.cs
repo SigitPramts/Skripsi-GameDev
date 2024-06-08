@@ -1,5 +1,4 @@
 using Cinemachine;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 [DisallowMultipleComponent]

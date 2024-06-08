@@ -1,7 +1,4 @@
 using System.Collections;
-using Unity.IO.LowLevel.Unsafe;
-using UnityEditor.Rendering;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -29,6 +26,10 @@ public class RoomLightingControl : MonoBehaviour
         StaticEventHandler.OnRoomChanged -= StaticEventHandler_OnRoomChanged;
     }
 
+
+    /// <summary>
+    /// Handle room changed event
+    /// </summary>
     private void StaticEventHandler_OnRoomChanged(RoomChangedEventArgs roomChangedEventArgs)
     {
         // If this is the room entered and the room isn't already lit, then fade in the room lighting
@@ -37,19 +38,29 @@ public class RoomLightingControl : MonoBehaviour
             // Fade in room
             FadeInRoomLighting();
 
+            // Ensure room environment decoration game objects are activated
+            instantiatedRoom.ActivateEnvironmentGameObjects();
+
             // Fade in the room doors lighting
             FadeInDoors();
 
             instantiatedRoom.room.isLit = true;
+
         }
     }
 
+    /// <summary>
+    /// Fade in the room lighting
+    /// </summary>
     private void FadeInRoomLighting()
     {
-        // Fade in the liughting for the room tilemaps
+        // Fade in the lighting for the room tilemaps
         StartCoroutine(FadeInRoomLightingRoutine(instantiatedRoom));
     }
 
+    /// <summary>
+    /// Fade in the room lighting coroutine
+    /// </summary>
     private IEnumerator FadeInRoomLightingRoutine(InstantiatedRoom instantiatedRoom)
     {
         // Create new material to fade in
@@ -73,8 +84,27 @@ public class RoomLightingControl : MonoBehaviour
         instantiatedRoom.decoration2Tilemap.GetComponent<TilemapRenderer>().material = GameResources.Instance.litMaterial;
         instantiatedRoom.frontTilemap.GetComponent<TilemapRenderer>().material = GameResources.Instance.litMaterial;
         instantiatedRoom.minimapTilemap.GetComponent<TilemapRenderer>().material = GameResources.Instance.litMaterial;
+
+
     }
 
+    /// <summary>
+    /// Fade in the environmental decoration game objects coroutine
+    /// </summary>
+    private IEnumerator FadeInEnvironmentLightingRoutine(Material material)
+    {
+        // Gradually fade in the lighting
+        for (float i = 0.05f; i <= 1f; i += Time.deltaTime / Settings.fadeInTime)
+        {
+            material.SetFloat("Alpha_Slider", i);
+            yield return null;
+        }
+
+    }
+
+    /// <summary>
+    /// Fade in the doors
+    /// </summary>
     private void FadeInDoors()
     {
         Door[] doorArray = GetComponentsInChildren<Door>();
@@ -85,5 +115,6 @@ public class RoomLightingControl : MonoBehaviour
 
             doorLightingControl.FadeInDoor(door);
         }
+
     }
 }

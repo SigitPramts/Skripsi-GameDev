@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.Networking;
 
-[RequireComponent(typeof(Plane))]
+[RequireComponent(typeof(Player))]
 [DisallowMultipleComponent]
+
 public class PlayerControl : MonoBehaviour
 {
     #region Tooltip
+
     [Tooltip("MovementDetailsSO scriptable object containing movement details such as speed")]
-    #endregion
+
+    #endregion Tooltip
+
     [SerializeField] private MovementDetailsSO movementDetails;
 
     private Player player;
@@ -20,12 +21,14 @@ public class PlayerControl : MonoBehaviour
     private float moveSpeed;
     private Coroutine playerRollCoroutine;
     private WaitForFixedUpdate waitForFixedUpdate;
-    private bool isPlayerRolling = false;
     private float playerRollCooldownTimer = 0f;
+    private bool isPlayerMovementDisabled = false;
+
+    [HideInInspector] public bool isPlayerRolling = false;
 
     private void Awake()
     {
-        // Load components 
+        // Load components
         player = GetComponent<Player>();
 
         moveSpeed = movementDetails.GetMoveSpeed();
@@ -36,13 +39,17 @@ public class PlayerControl : MonoBehaviour
         // Create waitforfixed update for use in coroutine
         waitForFixedUpdate = new WaitForFixedUpdate();
 
-        // Set starting weapon
+        // Set Starting Weapon
         SetStartingWeapon();
 
         // Set player animation speed
         SetPlayerAnimationSpeed();
+
     }
 
+    /// <summary>
+    /// Set the player starting weapon
+    /// </summary>
     private void SetStartingWeapon()
     {
         int index = 1;
@@ -54,11 +61,13 @@ public class PlayerControl : MonoBehaviour
                 SetWeaponByIndex(index);
                 break;
             }
-
             index++;
         }
     }
 
+    /// <summary>
+    /// Set player animator speed to match movement speed
+    /// </summary>
     private void SetPlayerAnimationSpeed()
     {
         // Set animator speed to match movement speed
@@ -67,7 +76,11 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        // If player is rolling then return
+        // if player movement disabled then return
+        if (isPlayerMovementDisabled)
+            return;
+
+        // if player is rolling then return
         if (isPlayerRolling) return;
 
         // Process the player movement input
@@ -76,10 +89,16 @@ public class PlayerControl : MonoBehaviour
         // Process the player weapon input
         WeaponInput();
 
+        // Process player use item input
+        UseItemInput();
+
         // Player roll cooldown timer
         PlayerRollCooldownTimer();
     }
 
+    /// <summary>
+    /// Player movement input
+    /// </summary>
     private void MovementInput()
     {
         // Get movement input
@@ -101,27 +120,34 @@ public class PlayerControl : MonoBehaviour
         {
             if (!rightMouseButtonDown)
             {
-                // Trigger movement event
+                // trigger movement event
                 player.movementByVelocityEvent.CallMovementByVelocityEvent(direction, moveSpeed);
             }
-            // Else player roll if not colling down
+            // else player roll if not cooling down
             else if (playerRollCooldownTimer <= 0f)
             {
                 PlayerRoll((Vector3)direction);
             }
+
         }
-        // Else trigger idle event
+        // else trigger idle event
         else
         {
             player.idleEvent.CallIdleEvent();
         }
     }
 
+    /// <summary>
+    /// Player roll
+    /// </summary>
     private void PlayerRoll(Vector3 direction)
     {
         playerRollCoroutine = StartCoroutine(PlayerRollRoutine(direction));
     }
 
+    /// <summary>
+    /// Player roll coroutine
+    /// </summary>
     private IEnumerator PlayerRollRoutine(Vector3 direction)
     {
         // minDistance used to decide when to exit coroutine loop
@@ -157,6 +183,9 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Weapon Input
+    /// </summary>
     private void WeaponInput()
     {
         Vector3 weaponDirection;
@@ -217,7 +246,7 @@ public class PlayerControl : MonoBehaviour
 
     private void SwitchWeaponInput()
     {
-        // Switch weapon if mouse scroll wheel selected
+        // Switch weapon if mouse scroll wheel selecetd
         if (Input.mouseScrollDelta.y < 0f)
         {
             PreviousWeapon();
@@ -282,6 +311,7 @@ public class PlayerControl : MonoBehaviour
         {
             SetCurrentWeaponToFirstInTheList();
         }
+
     }
 
     private void SetWeaponByIndex(int weaponIndex)
@@ -293,7 +323,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    private void PreviousWeapon()
+    private void NextWeapon()
     {
         currentWeaponIndex++;
 
@@ -303,9 +333,10 @@ public class PlayerControl : MonoBehaviour
         }
 
         SetWeaponByIndex(currentWeaponIndex);
+
     }
 
-    private void NextWeapon()
+    private void PreviousWeapon()
     {
         currentWeaponIndex--;
 
@@ -317,11 +348,12 @@ public class PlayerControl : MonoBehaviour
         SetWeaponByIndex(currentWeaponIndex);
     }
 
+
     private void ReloadWeaponInput()
     {
         Weapon currentWeapon = player.activeWeapon.GetCurrentWeapon();
 
-        // If current weapon is reloading retun
+        // if current weapon is reloading return
         if (currentWeapon.isWeaponReloading) return;
 
         // remaining ammo is less than clip capacity then return and not infinite ammo then return
@@ -335,6 +367,32 @@ public class PlayerControl : MonoBehaviour
             // Call the reload weapon event
             player.reloadWeaponEvent.CallReloadWeaponEvent(player.activeWeapon.GetCurrentWeapon(), 0);
         }
+
+    }
+
+    /// <summary>
+    /// Use the nearest item within 2 unity units from the player
+    /// </summary>
+    private void UseItemInput()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            float useItemRadius = 2f;
+
+            // Get any 'Useable' item near the player
+            Collider2D[] collider2DArray = Physics2D.OverlapCircleAll(player.GetPlayerPosition(), useItemRadius);
+
+            // Loop through detected items to see if any are 'useable'
+            foreach (Collider2D collider2D in collider2DArray)
+            {
+                IUseable iUseable = collider2D.GetComponent<IUseable>();
+
+                if (iUseable != null)
+                {
+                    iUseable.UseItem();
+                }
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -345,7 +403,7 @@ public class PlayerControl : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        // in in collision with womething stop player roll coroutine
+        // if in collision with something stop player roll coroutine
         StopPlayerRollRoutine();
     }
 
@@ -359,6 +417,26 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Enable the player movement
+    /// </summary>
+    public void EnablePlayer()
+    {
+        isPlayerMovementDisabled = false;
+    }
+
+    /// <summary>
+    /// Disable the player movement
+    /// </summary>
+    public void DisablePlayer()
+    {
+        isPlayerMovementDisabled = true;
+        player.idleEvent.CallIdleEvent();
+    }
+
+    /// <summary>
+    /// Set the current weapon to be first in the player weapon list
+    /// </summary>
     private void SetCurrentWeaponToFirstInTheList()
     {
         // Create new temporary list
@@ -369,7 +447,7 @@ public class PlayerControl : MonoBehaviour
         currentWeapon.weaponListPosition = 1;
         tempWeaponList.Add(currentWeapon);
 
-        // Loop through exiting weapon list and add - skipping current weapon
+        // Loop through existing weapon list and add - skipping current weapon
         int index = 2;
 
         foreach (Weapon weapon in player.weaponList)
@@ -391,11 +469,15 @@ public class PlayerControl : MonoBehaviour
     }
 
     #region Validation
+
 #if UNITY_EDITOR
+
     private void OnValidate()
     {
         HelperUtilities.ValidateCheckNullValue(this, nameof(movementDetails), movementDetails);
     }
+
 #endif
-    #endregion
+
+    #endregion Validation
 }

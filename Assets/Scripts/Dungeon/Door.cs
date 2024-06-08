@@ -1,16 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-[DisallowMultipleComponent] 
+[DisallowMultipleComponent]
 public class Door : MonoBehaviour
 {
-    #region Header Object References
+    #region Header OBJECT REFERENCES
     [Space(10)]
-    [Header("Object References")]
+    [Header("OBJECT REFERENCES")]
     #endregion
 
     #region Tooltip
@@ -26,7 +24,7 @@ public class Door : MonoBehaviour
 
     private void Awake()
     {
-        // Disable door collider by default
+        // disable door collider by default
         doorCollider.enabled = false;
 
         // Load components
@@ -44,12 +42,16 @@ public class Door : MonoBehaviour
 
     private void OnEnable()
     {
-        // When the parent gameobject is disable (when the player moves far enough away from the room)
-        // the animator state gets reset. Therefore we need to restore the animaotr state.
+        // When the parent gameobject is disabled (when the player moves far enough away from the
+        // room) the animator state gets reset. Therefore we need to restore the animator state.
         animator.SetBool(Settings.open, isOpen);
     }
 
-    private void OpenDoor()
+
+    /// <summary>
+    /// Open the door
+    /// </summary>
+    public void OpenDoor()
     {
         if (!isOpen)
         {
@@ -61,25 +63,32 @@ public class Door : MonoBehaviour
             // Set open parameter in animator
             animator.SetBool(Settings.open, true);
 
-            // Play sound effect
+            // play sound effect
             SoundEffectManager.Instance.PlaySoundEffect(GameResources.Instance.doorOpenCloseSoundEffect);
+
         }
     }
 
+    /// <summary>
+    /// Lock the door
+    /// </summary>
     public void LockDoor()
     {
         isOpen = false;
         doorCollider.enabled = true;
         doorTrigger.enabled = false;
 
-        // Set open to false to close door
+        // set open to false to close door
         animator.SetBool(Settings.open, false);
     }
 
+    /// <summary>
+    /// Unlock the door
+    /// </summary>
     public void UnlockDoor()
     {
         doorCollider.enabled = false;
-        doorTrigger.enabled = true; 
+        doorTrigger.enabled = true;
 
         if (previouslyOpened == true)
         {
@@ -88,7 +97,7 @@ public class Door : MonoBehaviour
         }
     }
 
-    #region Validator
+    #region Validation
 #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -96,4 +105,5 @@ public class Door : MonoBehaviour
     }
 #endif
     #endregion
+
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8408526e4d6d54285752adf1f3509c, type: 3}
   m_Name: MovementDetails_Slime Green
   m_EditorClassIdentifier: 
-  minMoveSpeed: 1
+  minMoveSpeed: 3
   maxMoveSpeed: 3
   rollSpeed: 0
   rollDistance: 0

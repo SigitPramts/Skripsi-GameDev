@@ -23,6 +23,8 @@ public class EnemyMovementAI : MonoBehaviour
     [HideInInspector] public float moveSpeed;
     private bool chasePlayer = false;
     [HideInInspector] public int updateFrameNumber = 1; // default value.  This is set by the enemy spawner.
+    [HideInInspector] public float accuracyPercentage = 0f;
+
     private List<Vector2Int> surroundingPositionList = new List<Vector2Int>();
 
     private void Awake()
@@ -45,6 +47,9 @@ public class EnemyMovementAI : MonoBehaviour
     private void Update()
     {
         MoveEnemy();
+
+        // Debug log posisi NPC pada setiap delta time
+        // Debug.Log($"NPC {gameObject.name} Posisi: {transform.position}");
     }
 
     private void MoveEnemy()
@@ -61,6 +66,9 @@ public class EnemyMovementAI : MonoBehaviour
         // If not close enough to chase player then return
         if (!chasePlayer)
             return;
+
+        // Only process A Star path rebuild on certain frames to spread the load between enemies
+        if (Time.frameCount % Settings.targetFrameRateToSpreadPathfindingOver != updateFrameNumber) return;
 
         // If the movement cooldown timer reached or player has moved more than reqiored distance
         // then rebuild the enemu path and move the enemy
@@ -93,8 +101,6 @@ public class EnemyMovementAI : MonoBehaviour
 
     private IEnumerator MoveEnemyRoutine(Stack<Vector3> movementSteps)
     {
-        int stepCount = 1;
-
         while (movementSteps.Count > 0)
         {
             Vector3 nextPosition = movementSteps.Pop();
@@ -107,16 +113,17 @@ public class EnemyMovementAI : MonoBehaviour
 
                 yield return waitForFixedUpdate; // Moving the enemy using 2D physics so wait until the next fixed update
             }
-            // Print enemy position to console log
-            Debug.Log("Langkah ke " + stepCount + " waktu " + Time.time + " posisi " + transform.position);
 
-            stepCount++;
+            // Debug.Log("Posisi NPC Sekarang: " + transform.position);
+
             yield return waitForFixedUpdate;
         }
+
 
         // End of path steps - trigger the enemy idle event
         enemy.idleEvent.CallIdleEvent();
     }
+
 
     private void CreatePath()
     {
@@ -143,6 +150,11 @@ public class EnemyMovementAI : MonoBehaviour
             // Trigger idle event - no path
             enemy.idleEvent.CallIdleEvent();
         }
+    }
+
+    public void SetUpdateFrameNumber(int updateFrameNumber)
+    {
+        this.updateFrameNumber = updateFrameNumber;
     }
 
     // Get the nearest position to the player that isn't on an obstacle

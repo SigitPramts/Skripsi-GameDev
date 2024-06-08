@@ -24,6 +24,28 @@ public class RoomTemplateSO : ScriptableObject
 
     [HideInInspector] public GameObject previousPrefab; // this is used to regenerate the guid if the so is copied and the prefab is changed
 
+    #region Header ROOM MUSIC
+
+    [Space(10)]
+    [Header("ROOM MUSIC")]
+
+    #endregion Header ROOM MUSIC
+
+    #region Tooltip
+
+    [Tooltip("The battle music SO when the room hasn't been cleared of enemies")]
+
+    #endregion Tooltip
+
+    public MusicTrackSO battleMusic;
+
+    #region Tooltip
+
+    [Tooltip("Ambient music SO for when the room has been cleared of enemies")]
+
+    #endregion Tooltip
+
+    public MusicTrackSO ambientMusic;
 
     #region Header ROOM CONFIGURATION
 
@@ -72,7 +94,26 @@ public class RoomTemplateSO : ScriptableObject
 
     public Vector2Int[] spawnPositionArray;
 
+    #region Header ENEMY DETAILS
+
+    [Space(10)]
+    [Header("ENEMY DETAILS")]
+
+    #endregion Header ENEMY DETAILS
+
+    #region Tooltip
+
+    [Tooltip("Populate the list with all the enemies that can be spawned in this room by dungeon level, including the ratio (random) of this enemy type that will be spawned")]
+
+    #endregion Tooltip
+
     public List<SpawnableObjectByLevel<EnemyDetailsSO>> enemiesByLevelList;
+
+    #region Tooltip
+
+    [Tooltip("Populate the list with the spawn parameters for the enemies.")]
+
+    #endregion Tooltip
 
     public List<RoomEnemySpawnParameters> roomEnemySpawnParametersList;
 
@@ -98,9 +139,11 @@ public class RoomTemplateSO : ScriptableObject
             previousPrefab = prefab;
             EditorUtility.SetDirty(this);
         }
-
         HelperUtilities.ValidateCheckNullValue(this, nameof(prefab), prefab);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(battleMusic), battleMusic);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(ambientMusic), ambientMusic);
         HelperUtilities.ValidateCheckNullValue(this, nameof(roomNodeType), roomNodeType);
+
         HelperUtilities.ValidateCheckEnumerableValues(this, nameof(doorwayList), doorwayList);
 
         // Check enemies and room spawn parameters for levels

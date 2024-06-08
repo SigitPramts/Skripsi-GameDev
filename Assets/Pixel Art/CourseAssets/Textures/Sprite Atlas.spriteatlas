@@ -819,6 +819,7 @@ SpriteAtlas:
   - {fileID: 1374991863440946228, guid: 60a4f412ead2848419d2fce5ba19c2fb, type: 3}
   - {fileID: -6513371479700069740, guid: 60a4f412ead2848419d2fce5ba19c2fb, type: 3}
   - {fileID: -3045339763402227310, guid: 60a4f412ead2848419d2fce5ba19c2fb, type: 3}
+  - {fileID: 21300000, guid: 529e7a125b31d154580edd862f40e8dc, type: 3}
   - {fileID: 5140541665199036877, guid: ca9a6422e6651ee45836825651a35e3f, type: 3}
   - {fileID: 585492555750498021, guid: ca9a6422e6651ee45836825651a35e3f, type: 3}
   - {fileID: -2707397711903873196, guid: ca9a6422e6651ee45836825651a35e3f, type: 3}
@@ -5714,6 +5715,7 @@ SpriteAtlas:
   - frozen6_1
   - frozen6_2
   - frozen6_3
+  - background1
   - statue_cerebov_3
   - statue_cerebov_2
   - statue_cerebov_1
